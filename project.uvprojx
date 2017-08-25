@@ -310,7 +310,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>0</interw>
-            <Optim>3</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -425,9 +425,9 @@
               <FilePath>.\src\Uart_helper.c</FilePath>
             </File>
             <File>
-              <FileName>Uart_helper.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Uart_helper.h</FilePath>
+              <FileName>GPIO_helper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\GPIO_helper.c</FilePath>
             </File>
           </Files>
         </Group>
