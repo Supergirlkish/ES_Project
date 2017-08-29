@@ -12,7 +12,7 @@
 void GpioSetup(void);		//sets up Uart for my configuration using library
 void GpioSetup2(void);	//sets up Uart for my configuration registers
 void EnableAllPorts(void);  //just enable all the ports for now
-void UpdateSwitches();  //updates switch values
+void UpdateSwitches(void);  //updates switch values
 
 // 1 = Pushed down
 // 0 = Not pushed down

@@ -43,3 +43,7 @@
 
 #include "src/Uart_helper.h"
 #include "src/GPIO_helper.h"
+#include "src/LEDStick_helper.h"
+#include "src/LCD_helper.h"
+#include "src/HAL_PLL.h"
+#include "src/HAL_Systick.h"

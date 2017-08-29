@@ -55,14 +55,14 @@ void ServiceRoutine()
 		UpdateSwitches();
 }
 
-
+//Hardware abstraction Layer.  Setup all the hardware
+//Do it once.  
 void SetupHardware()
 {
-	UartSetup();
-	//UartSetup2();  //alternate version
-	GpioSetup();
-	//GpioSetup2();  //alternate version
-	
+	SetupPLL();								// Setup the clock to 80Mhz
+	SetupSystick();           // initialize SysTick timer
+	UartSetup();							// Setup the Uart to print to terminal
+	GpioSetup();							// GPIO
 }
 
 int  main(void)
@@ -82,6 +82,19 @@ int  main(void)
 
 				PlayArea();
 				ServiceRoutine();
+			
+				if (MySwitches.SW5==1)
+				{
+					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5,0xFF);
+				}
+				else 
+				{
+					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5,0x0);
+				}
 
+				//GPIO_PORTB_DATA_R = 0x00000020;
+				//SetupLCD();
+				test_stick();
+				
     }
 }

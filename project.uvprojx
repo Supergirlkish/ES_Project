@@ -429,6 +429,31 @@
               <FileType>1</FileType>
               <FilePath>.\src\GPIO_helper.c</FilePath>
             </File>
+            <File>
+              <FileName>ADC_helper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\ADC_helper.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_Helper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\LCD_Helper.c</FilePath>
+            </File>
+            <File>
+              <FileName>LEDStick_Helper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\LEDStick_Helper.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PLL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\HAL_PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_Systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\HAL_Systick.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -1,6 +1,12 @@
 #include "GPIO_helper.h"
 
 struct MySwitches MySwitches;
+
+// /CS1 = PB0
+// /RST = PB1
+// A0   = PE4
+// SCL  = PE5
+// SI   = PB4
 	
 void GpioSetup()		//sets up GPIO
 {
@@ -56,6 +62,15 @@ void GpioSetup()		//sets up GPIO
 		
 	//use internal pull ups for other switches as well. 
 	GPIOPadConfigSet(GPIO_PORTC_BASE,GPIO_PIN_7,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);	
+	
+	//Port B Setup
+	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_5|GPIO_PIN_4|GPIO_PIN_1|GPIO_PIN_0);
+	GPIOPadConfigSet(GPIO_PORTB_BASE,GPIO_PIN_5|GPIO_PIN_4|GPIO_PIN_1|GPIO_PIN_0,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
+
+	//Port E Setup
+	GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_5|GPIO_PIN_4);
+	GPIOPadConfigSet(GPIO_PORTE_BASE,GPIO_PIN_5|GPIO_PIN_4,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
+
 }
 
 //A secondary version of Gpio Setup that enables switches on Port D and F
@@ -121,6 +136,7 @@ void UpdateSwitches()
 		scratch = GPIOPinRead(GPIO_PORTC_BASE,GPIO_PIN_7);
 		if (scratch != 0) MySwitches.SW5 = 1;
 		else MySwitches.SW5 = 0;
+		
 	
 }
 
@@ -181,3 +197,4 @@ void EnableAllPorts()
     
 	}
 }
+
