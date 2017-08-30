@@ -47,3 +47,4 @@
 #include "src/LCD_helper.h"
 #include "src/HAL_PLL.h"
 #include "src/HAL_Systick.h"
+#include "src/HAL_ADC.h"

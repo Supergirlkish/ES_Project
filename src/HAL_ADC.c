@@ -1,4 +1,4 @@
-#include "ADC_helper.h"
+#include "HAL_ADC.h"
 
 
 void SetupADCPins()

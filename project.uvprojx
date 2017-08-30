@@ -10,7 +10,8 @@
       <TargetName>project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>TM4C123GH6PM</Device>
@@ -430,11 +431,6 @@
               <FilePath>.\src\GPIO_helper.c</FilePath>
             </File>
             <File>
-              <FileName>ADC_helper.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\ADC_helper.c</FilePath>
-            </File>
-            <File>
               <FileName>LCD_Helper.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\LCD_Helper.c</FilePath>
@@ -453,6 +449,11 @@
               <FileName>HAL_Systick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\HAL_Systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\HAL_ADC.c</FilePath>
             </File>
           </Files>
         </Group>

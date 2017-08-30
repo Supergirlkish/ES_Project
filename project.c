@@ -83,6 +83,8 @@ int  main(void)
 				PlayArea();
 				ServiceRoutine();
 			
+				GPIOPinWrite(0x4002500,1,1);
+			
 				if (MySwitches.SW5==1)
 				{
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5,0xFF);
@@ -92,9 +94,8 @@ int  main(void)
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5,0x0);
 				}
 
-				//GPIO_PORTB_DATA_R = 0x00000020;
 				//SetupLCD();
-				test_stick();
+				//test_stick();
 				
     }
 }
