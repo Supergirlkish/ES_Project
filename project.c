@@ -1,64 +1,44 @@
 #include "project.h"
-#include <stdio.h>
-#include <stdint.h>
-//*****************************************************************************
-//
-// The error routine that is called if the driver library encounters an error.
-//
-//*****************************************************************************
 
-#ifdef DEBUG
-void
-__error__(char *pcFilename, uint32_t ui32Line)
+
+int main()
 {
-}
-#endif
-
-
-void SetupHardware()
-{
-	UartSetup();
-//	UartSetup2();
-}
-
-int  main(void)
-{
-		uint8_t temp;
-    volatile uint32_t ui32Loop;
+	uint32_t i;
+	uint8_t arr[100];
 	
-    // Enable the GPIO port that is used for the on-board LED.
-		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-    SetupHardware();
+	for (i=0;i<100;i++)
+	{
+		arr[i] = 0x23;
+	}
+	
+	i=0;
+	while(i<1234)
+	{
+		i++;
+	}
+	while(GPIOPinRead(GPIO_PORTD_BASE,GPIO_PIN_6));
+	
+	switch (i)
+	{
+		case 0: 
+			//sdfsdfs
+		break;
 		
-		// Check if the peripheral access is enabled.
-    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF))
-    {
-    
-		}
-    
-		// Enable the GPIO pin for the LED (PF3).  Set the direction as output, and
-    // enable the GPIO pin for digital function.
-    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_3);
-    while(1)
-    {
-				UARTCharPut(UART0_BASE, temp);
-			  temp++;
-				//UARTCharPut(UART0_BASE, '\n');
-				//UARTCharPut(UART0_BASE, '\r');
-        // Turn on the LED.
-        GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
-
-        // Delay for a bit.
-        for(ui32Loop = 0; ui32Loop < 200000; ui32Loop++)
-        {
-        }
-
-        // Turn off the LED.
-        GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
-
-        // Delay for a bit.
-        for(ui32Loop = 0; ui32Loop < 200000; ui32Loop++)
-        {
-        }
-    }
+		case 1:
+			//
+		break;
+		
+		default:
+			//asdfj;lsk
+		break;
+	}
+	
+	if (i!=1)
+	{
+		//asd;ofja;s
+	}
+	else
+	{
+		//sadlkfjhaskldj
+	}
 }
