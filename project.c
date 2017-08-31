@@ -1,6 +1,4 @@
 #include "project.h"
-#include <stdio.h>
-#include <stdint.h>
 
 //Momentary switches are connected to
 //
@@ -68,10 +66,11 @@ void SetupHardware()
 int  main(void)
 {
 		uint8_t temp;
-    volatile uint32_t ui32Loop;
-		
-		EnableAllPorts();					//make sure ports are enabled. Cant configure unenabled port
-		SetupHardware();
+	
+		HALSasu();								//Custom Startup script for TIVA board
+															//Unlocks pins, turns on all ports, etc.
+	
+		SetupHardware();					// Call all HAL setup functions
 		
     while(1)
     {
@@ -96,6 +95,5 @@ int  main(void)
 
 				//SetupLCD();
 				//test_stick();
-				
     }
 }

@@ -8,9 +8,6 @@
 #include "hw_gpio.h"
 #include "hw_types.h"
 
-
-
-void test_stick(void);
-void test_one(void);
-void test_zero(void);
-
+void HALSasu(void);							//Super Awesome start up, calls all functions
+void EnableAllPorts(void);  //just enable all the ports for now
+void UnlockPins(void);

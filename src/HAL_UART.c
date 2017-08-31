@@ -1,9 +1,10 @@
-#include "Uart_helper.h"
+#include "HAL_UART.h"
 
 //Writing this code involved 3 things 
 //1 - Looking at the TIVA driver library documentaion
 //2 - Looking at the source code for the uart.c in the driver folder
 //3 - Doing some google to debug errors
+
 void UartSetup()
 {
 		//

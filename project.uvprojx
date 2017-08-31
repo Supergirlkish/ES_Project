@@ -421,16 +421,6 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>Uart_helper.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Uart_helper.c</FilePath>
-            </File>
-            <File>
-              <FileName>GPIO_helper.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\GPIO_helper.c</FilePath>
-            </File>
-            <File>
               <FileName>LCD_Helper.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\LCD_Helper.c</FilePath>
@@ -454,6 +444,21 @@
               <FileName>HAL_ADC.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\HAL_ADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\HAL_GPIO.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_Sasu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\HAL_Sasu.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\HAL_UART.c</FilePath>
             </File>
           </Files>
         </Group>

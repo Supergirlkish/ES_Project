@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdint.h>
+#include <time.h>
 #include "inc/hw_memmap.h"
 
 #include "driverlib/adc.h"
@@ -39,12 +40,14 @@
 #include "driverlib/udma.h"
 #include "driverlib/usb.h"
 #include "driverlib/watchdog.h"
-#include "tm4c123gh6pm.h"
+#include "./inc/tm4c123gh6pm.h"
 
-#include "src/Uart_helper.h"
-#include "src/GPIO_helper.h"
+#include "src/HAL_UART.h"
+#include "src/HAL_GPIO.h"
 #include "src/LEDStick_helper.h"
 #include "src/LCD_helper.h"
 #include "src/HAL_PLL.h"
 #include "src/HAL_Systick.h"
 #include "src/HAL_ADC.h"
+#include "src/HAL_Sasu.h"
+

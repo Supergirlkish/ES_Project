@@ -1,4 +1,4 @@
-#include "GPIO_helper.h"
+#include "HAL_GPIO.h"
 
 struct MySwitches MySwitches;
 
@@ -22,10 +22,6 @@ void GpioSetup()		//sets up GPIO
 	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_2);
 	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1);
 	
-	//Need to Unlock PF4
-	HWREG(GPIO_PORTF_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY;
-	HWREG(GPIO_PORTF_BASE + GPIO_O_CR) = 0xFF;
-	HWREG(GPIO_PORTF_BASE + GPIO_O_LOCK) = 0;
 	
 	// On Board Momentary Switches
 	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE,GPIO_PIN_0);
@@ -34,13 +30,7 @@ void GpioSetup()		//sets up GPIO
 	//these two switchs need an internal pull up on pins
 	GPIOPadConfigSet(GPIO_PORTF_BASE,GPIO_PIN_0|GPIO_PIN_4,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
 	
-	
 	//Port D Setup
-	
-	//Need to Unlock PD7
-	HWREG(GPIO_PORTD_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY;
-	HWREG(GPIO_PORTD_BASE + GPIO_O_CR) = 0xFF;
-	HWREG(GPIO_PORTD_BASE + GPIO_O_LOCK) = 0;
 	
 	// Off Board Momentary Switches
 	GPIOPinTypeGPIOInput(GPIO_PORTD_BASE,GPIO_PIN_6);
@@ -51,11 +41,6 @@ void GpioSetup()		//sets up GPIO
 	
 	
 	//Port C Setup
-	
-	//Need to Unlock PC7
-	HWREG(GPIO_PORTC_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY;
-	HWREG(GPIO_PORTC_BASE + GPIO_O_CR) = 0xFF;
-	HWREG(GPIO_PORTC_BASE + GPIO_O_LOCK) = 0;
 	
 	// Off Board Momentary Switches
 	GPIOPinTypeGPIOInput(GPIO_PORTC_BASE,GPIO_PIN_7);
@@ -139,62 +124,3 @@ void UpdateSwitches()
 		
 	
 }
-
-
-//this is bad practice but whatever for now.
-void EnableAllPorts()
-{
-	// Enable the GPIO port that is used for the on-board LED.
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
-		
-	// Check if the peripheral access is enabled.
-  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOA))
-  {
-    
-	}
-	
-	// Enable the GPIO port that is used for the on-board LED.
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
-		
-	// Check if the peripheral access is enabled.
-  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOB))
-  {
-    
-	}
-	
-	// Enable the GPIO port that is used for the on-board LED.
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
-		
-	// Check if the peripheral access is enabled.
-  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOC))
-  {
-    
-	}
-	// Enable the GPIO port that is used for the on-board LED.
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
-		
-	// Check if the peripheral access is enabled.
-  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOD))
-  {
-    
-	}
-    
-		// Enable the GPIO port that is used for the on-board LED.
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-		
-	// Check if the peripheral access is enabled.
-  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOE))
-  {
-    
-	}
-	
-	// Enable the GPIO port that is used for the on-board LED.
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-		
-	// Check if the peripheral access is enabled.
-  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF))
-  {
-    
-	}
-}
-

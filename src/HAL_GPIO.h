@@ -5,13 +5,12 @@
 #include "hw_memmap.h"
 #include "gpio.h"
 #include "uart.h"
-#include "tm4c123gh6pm.h"
+#include "../inc/tm4c123gh6pm.h"
 #include "hw_gpio.h"
 #include "hw_types.h"
 
 void GpioSetup(void);		//sets up Uart for my configuration using library
 void GpioSetup2(void);	//sets up Uart for my configuration registers
-void EnableAllPorts(void);  //just enable all the ports for now
 void UpdateSwitches(void);  //updates switch values
 
 // 1 = Pushed down

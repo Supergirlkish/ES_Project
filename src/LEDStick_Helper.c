@@ -1,7 +1,5 @@
 #include "LEDStick_Helper.h"
 
-
-
 void this_delay(uint32_t i)
 {
 	uint32_t j;
@@ -10,6 +8,7 @@ void this_delay(uint32_t i)
 		__nop();
 	}
 }
+
 void send_zero()
 {
 	GPIO_PORTB_DATA_R |= 0x10;
