@@ -10,7 +10,7 @@
 
 
 
-void test_stick(void);
 void test_one(void);
 void test_zero(void);
+void test_stick(uint8_t ,uint8_t ,uint8_t ,uint8_t );
 

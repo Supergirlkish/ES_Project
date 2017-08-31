@@ -69,7 +69,10 @@ int  main(void)
 {
 		uint8_t temp;
     volatile uint32_t ui32Loop;
-		
+	
+	uint8_t rgbwColour[4]={0,0,0,0};
+	
+	
 		EnableAllPorts();					//make sure ports are enabled. Cant configure unenabled port
 		SetupHardware();
 		
@@ -83,7 +86,6 @@ int  main(void)
 				PlayArea();
 				ServiceRoutine();
 			
-				GPIOPinWrite(0x4002500,1,1);
 			
 				if (MySwitches.SW5==1)
 				{
@@ -94,8 +96,18 @@ int  main(void)
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5,0x0);
 				}
 
-				//SetupLCD();
-				//test_stick();
+			temp = 2;
+			rgbwColour[temp]++;
+			if (rgbwColour[temp]++>127)
+			{
+				rgbwColour[temp]=0;
+			}
+			test_stick(rgbwColour[0],rgbwColour[1],rgbwColour[2],rgbwColour[3]);
+			//SetupLCD();
+		}
+	
+	
+	
 				
-    }
 }
+
