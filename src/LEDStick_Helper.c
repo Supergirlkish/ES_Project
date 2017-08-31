@@ -84,20 +84,18 @@ void test_zero()
 		
 }
 
-void test_stick()
+
+
+void test_stick(uint8_t RED,uint8_t GRE,uint8_t BLU,uint8_t WHI)
 {
 	//green red blue order
 	//most sig bit first
 	uint8_t n,j,scratch;
-	static uint8_t RED=0x2;
-	uint8_t BLU=0x0;
-	uint8_t GRE=0x0;
-
-	RED++;
-	//BLU++;
-	//GRE++;
+	
+	
+	
 	latch();
-	for (j=0;j<2;j++)
+	for (j=0;j<8;j++)
 	{
 		for(n=8; n>0; --n)
 		{
@@ -119,6 +117,15 @@ void test_stick()
 		for(n=8; n>0; --n)
 		{
 			scratch = (BLU>>n)&0x01; 
+			
+			if (scratch == 1) test_one();
+			else test_zero();
+			
+		}
+		
+		for(n=8; n>0; --n)
+		{
+			scratch = (WHI>>n)&0x01; 
 			
 			if (scratch == 1) test_one();
 			else test_zero();
