@@ -66,22 +66,17 @@ void SetupHardware()
 int  main(void)
 {
 		uint8_t temp;
-<<<<<<< HEAD
+
+		while(1)
+		{
+			ShiftColor(0);
+		}
 	
 		HALSasu();								//Custom Startup script for TIVA board
 															//Unlocks pins, turns on all ports, etc.
 	
 		SetupHardware();					// Call all HAL setup functions
-=======
-    volatile uint32_t ui32Loop;
-	
-	uint8_t rgbwColour[4]={0,0,0,0};
-	
-	
-		EnableAllPorts();					//make sure ports are enabled. Cant configure unenabled port
-		SetupHardware();
->>>>>>> adcd92cbbbd8c965577f7d706f1df0b7221ad943
-		
+			
     while(1)
     {
 				UARTCharPut(UART0_BASE, temp);
@@ -101,25 +96,17 @@ int  main(void)
 				{
 					GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5,0x0);
 				}
-
-<<<<<<< HEAD
-				//SetupLCD();
-				//test_stick();
-    }
-=======
-			temp = 2;
-			rgbwColour[temp]++;
-			if (rgbwColour[temp]++>127)
-			{
-				rgbwColour[temp]=0;
-			}
-			test_stick(rgbwColour[0],rgbwColour[1],rgbwColour[2],rgbwColour[3]);
-			//SetupLCD();
-		}
-	
-	
-	
 				
->>>>>>> adcd92cbbbd8c965577f7d706f1df0b7221ad943
+    }
+		temp = 2;
+		rgbwmatrix[temp][0]++;
+		if (rgbwmatrix[temp][0]++>127)
+		{
+			rgbwmatrix[temp][0]=0;
+		}
+		test_stick(rgbwmatrix[temp][0],rgbwmatrix[temp][1],rgbwmatrix[temp][2],rgbwmatrix[temp][3]);
+		//SetupLCD();
+	
+	
 }
 

@@ -64,12 +64,12 @@ void GpioSetup()		//sets up GPIO
 void GpioSetup2()
 {
 	//setup port F
-	
-		//need to unlock the pins first
-		GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;  //allow write access to CR reg
-		GPIO_PORTF_CR_R = 0xFF; 						//write CR reg
-		GPIO_PORTF_LOCK_R = 0;							//lock access to CR reg
-	
+
+	//need to unlock the pins first
+	GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;  //allow write access to CR reg
+	GPIO_PORTF_CR_R = 0xFF; 						//write CR reg
+	GPIO_PORTF_LOCK_R = 0;							//lock access to CR reg
+
 	GPIO_PORTF_DIR_R = 0x0000000E; //PF1-3, outputs, all others inputs
 	GPIO_PORTF_PUR_R = 0x00000011; //Pullups on PF0, PF4
 	
@@ -80,12 +80,12 @@ void GpioSetup2()
 	GPIO_PORTF_DEN_R |= 0x0000001F; 
 	
 	//Setup port D
-	
-		//need to unlock the pins first
-		GPIO_PORTD_LOCK_R = GPIO_LOCK_KEY;  //allow write access to CR reg
-		GPIO_PORTD_CR_R = 0xFF; 						//write CR reg
-		GPIO_PORTD_LOCK_R = 0;							//lock access to CR reg
-	
+
+	//need to unlock the pins first
+	GPIO_PORTD_LOCK_R = GPIO_LOCK_KEY;  //allow write access to CR reg
+	GPIO_PORTD_CR_R = 0xFF; 						//write CR reg
+	GPIO_PORTD_LOCK_R = 0;							//lock access to CR reg
+
 	
 	//clearing bits
 	GPIO_PORTD_DIR_R &= ~0x000000C0; //Make sure PD6, PD7 are inputs
