@@ -10,4 +10,8 @@
 #include "hw_gpio.h"
 #include "hw_types.h"
 
+extern uint32_t ADC_Values[13];
+
 void SetupADC(void);
+void ADCReadChan(void);  
+

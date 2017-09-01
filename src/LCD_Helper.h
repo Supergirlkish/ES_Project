@@ -7,6 +7,7 @@
 #include "tm4c123gh6pm.h"
 #include "hw_gpio.h"
 #include "hw_types.h"
+#include "HAL_Systick.h"
 
 void SetupLCD(void);
 void dispPic(unsigned char *lcd_string);

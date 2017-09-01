@@ -1,8 +1,20 @@
 #include "LEDStick_Helper.h"
 
+//bit bang method to control WS Leds
+//Matrix data is public global, other modules can access
+//Call initWSPin once to set pin as output
+//
+
 uint8_t rgbwmatrix[LED_SIZE][5];
 
-void ResetMatrix()
+
+void WSSendOne(void);
+void WSSendZero(void);
+
+//color related functions
+
+//resets the color matrix to zero
+void WSResetMatrix()
 {
 	for (int i; i<LED_SIZE;i++)
 	{
@@ -14,7 +26,19 @@ void ResetMatrix()
 	}
 }
 
-void SetRGBColor(uint8_t RED,uint8_t GRE,uint8_t BLU, uint8_t LED)
+//set all the leds in the matrix to a single color
+void WSSetAllLeds(uint8_t RED,uint8_t GRE,uint8_t BLU,uint8_t WHI)
+{
+	for (int i=0;i<LED_SIZE;i++)
+	{
+		rgbwmatrix[i][RED_IDX]=RED;
+		rgbwmatrix[i][GRE_IDX]=GRE;
+		rgbwmatrix[i][BLU_IDX]=BLU;
+		rgbwmatrix[i][WHI_IDX]=WHI;
+	}
+}
+//set color of an individual LED RGB Values
+void WSSetRGBColor(uint8_t RED,uint8_t GRE,uint8_t BLU, uint8_t LED)
 {
 	rgbwmatrix[LED][0]=RED;
 	rgbwmatrix[LED][1]=GRE;
@@ -22,7 +46,8 @@ void SetRGBColor(uint8_t RED,uint8_t GRE,uint8_t BLU, uint8_t LED)
 	rgbwmatrix[LED][3]=0;
 }
 
-void SetWColor(uint8_t WHI, uint8_t LED)
+//Set the white value
+void WSSetWColor(uint8_t WHI, uint8_t LED)
 {
 	rgbwmatrix[LED][0]=0;
 	rgbwmatrix[LED][1]=0;
@@ -30,10 +55,10 @@ void SetWColor(uint8_t WHI, uint8_t LED)
 	rgbwmatrix[LED][3]=WHI;
 }
 
-
-void ShiftColor(uint8_t lednum)
+//rotates the color of LED.  Call continuously in for loop
+void WSShiftColor(uint8_t lednum)
 {
-	//r->R, //b<-B,	//g->G, //r<-R,	//b->B,	//g<-G
+	//  r->R, b<-B,	g->G, r<-R,	b->B,	g<-G
 	
 	//make sure led number is within array
 	if(lednum>LED_SIZE)return;
@@ -108,52 +133,32 @@ void ShiftColor(uint8_t lednum)
 	}
 }
 
-void this_delay(uint32_t i)
+
+// HAL Related functions at the bottom
+
+// call init to set up pin.  
+void WSinitPin()
 {
-	uint32_t j;
-	for (j = 0; j<i; j++)
+	//Port B Setup
+	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_7|GPIO_PIN_6);
+	GPIOPadConfigSet(GPIO_PORTB_BASE,GPIO_PIN_7|GPIO_PIN_6,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
+}
+
+
+void WSLatch()
+{
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_7|GPIO_PIN_6,0x00) ; 
+	//delay at least 50us
+	for (int j = 0; j<4010; j++)
 	{
 		__nop();
 	}
 }
 
-void send_zero()
+//bit bang out a One.  Works on 80Mhz clock only
+void WSSendOne()
 {
-	GPIO_PORTB_DATA_R |= 0x10;
-	//GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4,0xFF) ; 
-	//.4us delay
-	__nop();
-	GPIO_PORTB_DATA_R &= ~0x10;
-	//GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4,0x00) ; 
-	//.8us delay
-	__nop();
-	__nop();
-}
-
-void send_one()
-{
-	GPIO_PORTB_DATA_R |= 0x10;
-	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4,0xFF) ; 
-	//.8us delay
-	__nop();
-	__nop();
-	GPIO_PORTB_DATA_R &= ~0x10;
-	//GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4,0x00) ; 
-	//.4us delay
-	__nop();
-	
-}
-
-void latch()
-{
-	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4,0x00) ; 
-	this_delay(20); //at least 50us
-}
-
-
-void test_one()
-{
-		GPIO_PORTB_DATA_R |= 0x10; //.8us
+		GPIO_PORTB_DATA_R |= (GPIO_PIN_7|GPIO_PIN_6); //.8us
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();__nop();
@@ -163,21 +168,22 @@ void test_one()
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();__nop();
-		GPIO_PORTB_DATA_R &= ~0x10; //.45us
+		GPIO_PORTB_DATA_R &= ~(GPIO_PIN_7|GPIO_PIN_6); //.45us
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();
 }
 
-void test_zero()
+//bit bang out a Zero.  Works on 80Mhz clock only
+void WSSendZero()
 {
-		GPIO_PORTB_DATA_R |= 0x10;
+		GPIO_PORTB_DATA_R |= (GPIO_PIN_7|GPIO_PIN_6);
 		//.4us
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();
 	
-		GPIO_PORTB_DATA_R &= ~0x10;
+		GPIO_PORTB_DATA_R &= ~(GPIO_PIN_7|GPIO_PIN_6);
 		//.85us
 		__nop();__nop();__nop();__nop();__nop();__nop();
 		__nop();__nop();__nop();__nop();__nop();__nop();
@@ -192,89 +198,44 @@ void test_zero()
 		
 }
 
-void SendMatrix()
+//sends the color matrix out to the RGBW Leds
+//comment out last part if no WHI Led
+void WSSendMatrix(uint8_t matrix_type)
 {
-	uint8_t n,j,scratch;
-	latch();
+	uint8_t n,scratch;
+	WSLatch();
 	for (int i = 0;i<LED_SIZE;i++)
 	{
 		for(n=8; n>0; --n)
 		{
 			scratch = (rgbwmatrix[i][GRE_IDX]>>n)&0x01; 
-			if (scratch == 1) test_one();
-			else test_zero();
+			if (scratch == 1) WSSendOne();
+			else WSSendZero();
 		}
 		
 		for(n=8; n>0; --n)
 		{
 			scratch = (rgbwmatrix[i][RED_IDX]>>n)&0x01; 
-			if (scratch == 1) test_one();
-			else test_zero();
+			if (scratch == 1) WSSendOne();
+			else WSSendZero();
 		}
 		
 		for(n=8; n>0; --n)
 		{
 			scratch = (rgbwmatrix[i][BLU_IDX]>>n)&0x01; 
-			if (scratch == 1) test_one();
-			else test_zero();
+			if (scratch == 1) WSSendOne();
+			else WSSendZero();
 		}
 		
-		for(n=8; n>0; --n)
-		{
-			scratch = (rgbwmatrix[i][WHI_IDX]>>n)&0x01; 
-			if (scratch == 1) test_one();
-			else test_zero();
-		}
+//		if (matrix_type == RGBW_TYPE)
+//		{
+//			for(n=8; n>0; --n)
+//			{
+//				scratch = (rgbwmatrix[i][WHI_IDX]>>n)&0x01; 
+//				if (scratch == 1) WSSendOne();
+//				else WSSendZero();
+//			}
+//		}
 	}
-	latch();
+	WSLatch();
 }
-
-void test_stick(uint8_t RED,uint8_t GRE,uint8_t BLU,uint8_t WHI)
-{
-	//green red blue order
-	//most sig bit first
-	uint8_t n,j,scratch;
-	
-	latch();
-	for (j=0;j<8;j++)
-	{
-		for(n=8; n>0; --n)
-		{
-			scratch = (GRE>>n)&0x01; 
-			
-			if (scratch == 1) test_one();
-			else test_zero();
-		}
-		
-		for(n=8; n>0; --n)
-		{
-			scratch = (RED>>n)&0x01; 
-			
-			if (scratch == 1) test_one();
-			else test_zero();
-			
-		}
-		
-		for(n=8; n>0; --n)
-		{
-			scratch = (BLU>>n)&0x01; 
-			
-			if (scratch == 1) test_one();
-			else test_zero();
-			
-		}
-		
-		for(n=8; n>0; --n)
-		{
-			scratch = (WHI>>n)&0x01; 
-			
-			if (scratch == 1) test_one();
-			else test_zero();
-			
-		}
-		
-	}
-	latch();
-	
-}
-

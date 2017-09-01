@@ -8,20 +8,25 @@
 #include "hw_gpio.h"
 #include "hw_types.h"
 
-#define LED_SIZE  8
+													//ring has 60 leds
+													//string has 8
+#define LED_SIZE 	60				//num of leds in matrix, strip, etc
 
-#define RED_IDX 0
-#define GRE_IDX 1
-#define BLU_IDX 2
-#define WHI_IDX 3
-#define LED_STATE 4
-#define CLR_MAX 255
-#define CLR_MIN 0
+#define RED_IDX 0					//array index for red
+#define GRE_IDX 1					//green
+#define BLU_IDX 2					//blue
+#define WHI_IDX 3					//white
+#define LED_STATE 4				//array index for what rotation state its in 
+#define CLR_MAX 20				//the max brigthness the LEDS can go (255 max)
+#define CLR_MIN 0					//the min
+
+#define RGB_TYPE 0				//if LED is RGB
+#define RGBW_TYPE 1				//if LED is RGBW
 
 //rgbw rotation position
 extern uint8_t rgbwmatrix[LED_SIZE][5];
-void ShiftColor(uint8_t);
-void test_one(void);
-void test_zero(void);
-void test_stick(uint8_t ,uint8_t ,uint8_t ,uint8_t );
+void WSShiftColor(uint8_t LED_NUM);
+void WSSendMatrix(uint8_t MATRIX_TYPE);
+void WSinitPin(void);
+void WSSetAllLeds(uint8_t RED,uint8_t GRE,uint8_t BLU,uint8_t WHI);
 
