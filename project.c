@@ -73,6 +73,10 @@ void PlayArea ()
 void ServiceRoutine()
 {
 		UpdateSwitches();
+	//	WSRand();
+//		WSNormalizeAll();
+		WSSendMatrix(RGB_TYPE);
+		SysTickWait10ms(2);
 }
 
 //Hardware abstraction Layer.  Setup all the hardware
@@ -132,23 +136,20 @@ int  main(void)
 
 				PlayArea();
 				ServiceRoutine();
-			
-			
-//				if (MySwitches.SW5==1)
-//				{
-//					WSShiftColor(0);
-//					WSSetAllLeds(rgbwmatrix[0][RED_IDX],rgbwmatrix[0][GRE_IDX],rgbwmatrix[0][BLU_IDX],rgbwmatrix[0][WHI_IDX]);
-//					WSSendMatrix(RGBW_TYPE);
-//					SysTickWait10ms(2);
-//				}
-//				else 
-//				{
-//					WSSetAllLeds(0,0,0,0);
-//					WSSendMatrix(RGB_TYPE);
-//				}
-				accel2color();
-				WSSendMatrix(RGB_TYPE);
-				ADCReadChan();				
+			//	printf("Hello Everyone\n\r");
+			//	WSSetChar(0,0,0,0);
+				if (MySwitches.SW5==1)
+				{
+					WSShiftColor_static(0);
+					WSSetAllLeds(rgbwmatrix[0][RED_IDX],rgbwmatrix[0][GRE_IDX],rgbwmatrix[0][BLU_IDX],rgbwmatrix[0][WHI_IDX]);
+				}
+				else 
+				{
+					WSSetAllLeds(0,0,0,0);
+				}
+				//accel2color();
+				//WSSendMatrix(RGB_TYPE);
+				//ADCReadChan();				
     }
 	
 	

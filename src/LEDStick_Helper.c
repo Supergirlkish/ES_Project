@@ -10,6 +10,33 @@ uint8_t rgbwmatrix[LED_SIZE][5];
 
 void WSSendOne(void);
 void WSSendZero(void);
+void WSResetMatrix(void);
+
+uint32_t WSMatrix2Pixel(uint8_t row,uint8_t col)
+{
+	return(row*8+col);
+}
+
+void WSSetChar(uint8_t thischar, uint8_t RED,uint8_t GRE,uint8_t BLU)
+{
+    uint8_t gyu[5]=WS_E;
+		int k=0;
+		for (int i=0;i<5;i++)
+		{
+			for (int j=0;j<8;j++)
+			{
+				if(((gyu[i]>>j)&0x1)==1)
+				{
+					//WSSetRGBColor(255,0,0,k);
+				}
+				else
+				{
+					WSSetRGBColor(0,0,0,k);
+				}
+				k++;
+			}
+		}
+}
 
 //color related functions
 
@@ -53,6 +80,103 @@ void WSSetWColor(uint8_t WHI, uint8_t LED)
 	rgbwmatrix[LED][1]=0;
 	rgbwmatrix[LED][2]=0;
 	rgbwmatrix[LED][3]=WHI;
+}
+
+void WSRand()
+{
+	uint32_t scratch;
+	for (int i=0;i<LED_SIZE;i++)
+	{
+		scratch = SysTickValueGet();
+		srand(0x45);
+		scratch = rand();
+		rgbwmatrix[i][0]=(uint8_t)(rand()>>15);
+		rgbwmatrix[i][1]=(uint8_t)(rand()>>15);
+		rgbwmatrix[i][2]=(uint8_t)(rand()>>15);
+	}
+	
+}
+
+//pretty sure this works, need to test
+void WSNormalizeLed(uint8_t lednum)
+{
+		uint32_t thisred,thisblue,thisgreen;
+		uint32_t sum;
+	
+		thisred   = rgbwmatrix[lednum][RED_IDX];
+		thisgreen = rgbwmatrix[lednum][BLU_IDX];
+		thisblue  = rgbwmatrix[lednum][GRE_IDX];
+	
+		sum = thisblue  + thisgreen + thisred ;
+	
+	  thisblue *= 0xFF;
+		thisgreen *= 0xFF;
+		thisred *= 0xFF;
+	
+	  thisred /=sum;
+		thisblue /=sum;
+		thisgreen /=sum;
+	
+		thisred   = rgbwmatrix[lednum][RED_IDX] = thisred;
+		thisgreen = rgbwmatrix[lednum][BLU_IDX] = thisgreen;
+		thisblue  = rgbwmatrix[lednum][GRE_IDX] = thisblue;
+	
+}
+
+void WSNormalizeAll()
+{
+	for (int i=0;i<LED_SIZE;i++)
+	{
+		WSNormalizeLed(i);
+	}
+}
+
+//shifts colors but keeps total value normalized
+//to CLR_MAX
+void WSShiftColor_static(uint8_t lednum)
+{
+	//make sure led number is within array
+	if(lednum>LED_SIZE)return;
+	
+	//r+,b-, 	r-,g+, 	g-,b+
+	switch (rgbwmatrix[lednum][LED_STATE])
+	{
+		case 0:
+			rgbwmatrix[lednum][RED_IDX]++;
+			rgbwmatrix[lednum][BLU_IDX]--;
+			rgbwmatrix[lednum][GRE_IDX]=0;
+		  if (rgbwmatrix[lednum][RED_IDX]==CLR_MAX)
+			{
+				rgbwmatrix[lednum][LED_STATE]=1;
+			}
+		break;
+		
+		case 1:
+			rgbwmatrix[lednum][BLU_IDX]=0;
+			rgbwmatrix[lednum][RED_IDX]--;
+			rgbwmatrix[lednum][GRE_IDX]++;
+			if (rgbwmatrix[lednum][GRE_IDX]==CLR_MAX)
+			{
+				rgbwmatrix[lednum][LED_STATE]=2;
+			}
+		break;
+		
+		case 2:
+			rgbwmatrix[lednum][RED_IDX]=0;
+			rgbwmatrix[lednum][GRE_IDX]--;
+			rgbwmatrix[lednum][BLU_IDX]++;
+			if (rgbwmatrix[lednum][BLU_IDX]==CLR_MAX)
+			{
+				rgbwmatrix[lednum][LED_STATE]=0;
+			}
+		break;
+		default:
+				rgbwmatrix[lednum][RED_IDX]=0;
+				rgbwmatrix[lednum][GRE_IDX]=0;
+				rgbwmatrix[lednum][BLU_IDX]=CLR_MAX;
+				rgbwmatrix[lednum][LED_STATE]=0;
+			break;
+	}
 }
 
 //rotates the color of LED.  Call continuously in for loop
