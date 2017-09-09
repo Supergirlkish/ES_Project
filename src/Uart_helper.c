@@ -4,6 +4,11 @@
 //1 - Looking at the TIVA driver library documentaion
 //2 - Looking at the source code for the uart.c in the driver folder
 //3 - Doing some google to debug errors
+
+//redirect for printf.
+void UART_OutChar(char data);
+int fputc(int ch, FILE *f);
+
 void UartSetup()
 {
 		//
@@ -30,6 +35,21 @@ void UartSetup()
 		// Check for characters. Spin here until a character is placed
 }
 
+void UART_OutChar(char data){
+  while((UART0_FR_R&UART_FR_TXFF) != 0);
+  UART0_DR_R = data;
+}
+
+// Print a character to UART.
+int fputc(int ch, FILE *f){
+  if((ch == 10) || (ch == 13) || (ch == 27)){
+    UART_OutChar(13);
+    UART_OutChar(10);
+    return 1;
+  }
+  UART_OutChar(ch);
+  return 1;
+}
 
 // this function does the same thing as UartSetup(), but uses direct register access method
 
