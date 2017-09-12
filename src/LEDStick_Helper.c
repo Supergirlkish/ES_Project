@@ -82,6 +82,8 @@ void WSSetWColor(uint8_t WHI, uint8_t LED)
 	rgbwmatrix[LED][3]=WHI;
 }
 
+
+
 void WSRand()
 {
 	uint32_t scratch;
@@ -351,15 +353,15 @@ void WSSendMatrix(uint8_t matrix_type)
 			else WSSendZero();
 		}
 		
-//		if (matrix_type == RGBW_TYPE)
-//		{
-//			for(n=8; n>0; --n)
-//			{
-//				scratch = (rgbwmatrix[i][WHI_IDX]>>n)&0x01; 
-//				if (scratch == 1) WSSendOne();
-//				else WSSendZero();
-//			}
-//		}
+		if (matrix_type == RGBW_TYPE)
+		{
+			for(n=8; n>0; --n)
+			{
+				scratch = (rgbwmatrix[i][WHI_IDX]>>n)&0x01; 
+				if (scratch == 1) WSSendOne();
+				else WSSendZero();
+			}
+		}
 	}
 	WSLatch();
 }

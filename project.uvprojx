@@ -10,8 +10,7 @@
       <TargetName>project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
-      <uAC6>0</uAC6>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>TM4C123GH6PM</Device>
@@ -421,11 +420,6 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>LCD_Helper.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\LCD_Helper.c</FilePath>
-            </File>
-            <File>
               <FileName>LEDStick_Helper.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\LEDStick_Helper.c</FilePath>
@@ -464,6 +458,11 @@
               <FileName>LED_routines.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\LED_routines.c</FilePath>
+            </File>
+            <File>
+              <FileName>SER_ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\SER_ST7735.c</FilePath>
             </File>
           </Files>
         </Group>
