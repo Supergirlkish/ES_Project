@@ -1,5 +1,7 @@
+// Do not edit *****
 #include <stdbool.h>
 #include <stdint.h>
+#include <time.h>
 #include "inc/hw_memmap.h"
 
 #include "driverlib/adc.h"
@@ -41,5 +43,7 @@
 #include "driverlib/watchdog.h"
 #include "tm4c123gh6pm.h"
 
+// Editing ok below this line. 
+// Include the .h file of your module here.  
+
 #include "src/Uart_helper.h"
-#include "pin_map.h"

@@ -10,8 +10,7 @@
       <TargetName>project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
-      <uAC6>0</uAC6>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>TM4C123GH6PM</Device>
@@ -492,11 +491,6 @@
               <FileName>Uart_helper.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Uart_helper.c</FilePath>
-            </File>
-            <File>
-              <FileName>Uart_helper.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Uart_helper.h</FilePath>
             </File>
           </Files>
         </Group>

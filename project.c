@@ -18,14 +18,11 @@ __error__(char *pcFilename, uint32_t ui32Line)
 void SetupHardware()
 {
 	UartSetup();
-//	UartSetup2();
 }
 
 int  main(void)
 {
 		uint8_t temp;
-    volatile uint32_t ui32Loop;
-		char f;
 	
     // Enable the GPIO port that is used for the on-board LED.
 		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
@@ -40,18 +37,19 @@ int  main(void)
 		// Enable the GPIO pin for the LED (PF3).  Set the direction as output, and
     // enable the GPIO pin for digital function.
     GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_3);
+		
+		//loop forever
     while(1)
     {
 			
-				UARTCharPut(UART0_BASE, temp);
-			  temp++;
-				//UARTCharPut(UART0_BASE, '\n');
-				//UARTCharPut(UART0_BASE, '\r');
-        // Turn on the LED.
+				UARTCharPut(UART0_BASE, temp);		//send a character
+			  temp++;														//next character
+		
+				// Turn on the LED.
         GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
 
         // Delay for a bit.
-        for(ui32Loop = 0; ui32Loop < 200000; ui32Loop++)
+        for(int ui32Loop = 0; ui32Loop < 200000; ui32Loop++)
         {
         }
 
@@ -59,7 +57,7 @@ int  main(void)
         GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
 
         // Delay for a bit.
-        for(ui32Loop = 0; ui32Loop < 200000; ui32Loop++)
+        for(int ui32Loop = 0; ui32Loop < 200000; ui32Loop++)
         {
         }
     }
