@@ -25,6 +25,7 @@ int  main(void)
 {
 		uint8_t temp;
     volatile uint32_t ui32Loop;
+		char f;
 	
     // Enable the GPIO port that is used for the on-board LED.
 		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
@@ -41,6 +42,7 @@ int  main(void)
     GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_3);
     while(1)
     {
+			
 				UARTCharPut(UART0_BASE, temp);
 			  temp++;
 				//UARTCharPut(UART0_BASE, '\n');
